@@ -154,25 +154,16 @@ def alogin():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-
-        # Check if the email and password match a user in the database
-        conn = sqlite3.connect(db1_name)
-        c = conn.cursor()
-        c.execute("SELECT * FROM admins WHERE email=? AND password=?", (email, password))
-        user = c.fetchone()
-        conn.close()
-
-        if user:
-            session['user_id'] = user[0]
-            session['progress'] = user[4]
+        if email == 'akil.paidi@gmail.com' and password == 'akil':
+            session['user_id'] = 'admin'
+            session['progress'] = 0
             return render_template('agame.html')
         else:
             error = 'Incorrect email or password. Please try again.'
             return render_template('alogin.html', error=error)
-
     else:
         return render_template('alogin.html')
-
+    
 
 # Route to display all users
 @app.route('/users')
